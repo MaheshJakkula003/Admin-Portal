@@ -9,7 +9,7 @@ This project is a complete backend implementation for the CertifyMe Admin Portal
 - **Dynamic UI:** All data operations happen seamlessly via JSON APIs without requiring page refreshes.
 
 ## Technologies Used
-- Python 3  
+- Python  
 - Flask  
 - Flask‑SQLAlchemy (Database ORM)  
 - Flask‑Login (Session management)  
