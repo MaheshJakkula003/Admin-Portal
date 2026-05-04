@@ -1,0 +1,351 @@
+/* ================= GLOBAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f4f6fb;
+    color: #1e293b;
+}
+
+/* ================= AUTH WRAPPER ================= */
+#authWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ================= FORM ================= */
+.form-page {
+    display: none;
+}
+
+.form-page.active {
+    display: block;
+}
+
+form {
+    width: 360px;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+form h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* spacing */
+form input,
+form textarea,
+form select {
+    margin-bottom: 12px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* ================= BUTTON ================= */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+/* cancel button */
+button[type="button"] {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+button[type="button"]:hover {
+    background: #d1d5db;
+}
+
+/* ================= DASHBOARD ================= */
+#dashboardWrapper {
+    display: none;
+}
+
+#dashboardWrapper.active {
+    display: flex;
+}
+
+/* ================= SIDEBAR ================= */
+.nav {
+    width: 230px;
+    background: #0f172a;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+}
+
+.nav-item {
+    padding: 14px 20px;
+    color: #cbd5f5;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #1e293b;
+    color: #fff;
+}
+
+/* ================= MAIN ================= */
+.main {
+    margin-left: 230px;
+    width: 100%;
+    padding: 20px;
+}
+
+/* ================= HEADER ================= */
+header {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#pageTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#userEmail {
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* ================= DASH SECTIONS ================= */
+.dash-section {
+    display: none;
+}
+
+.dash-section.active {
+    display: block;
+}
+
+/* ================= EMPTY DASHBOARD ================= */
+#dashboardSection h3 {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* ================= LOADER ================= */
+#loader {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #2563eb;
+}
+
+/* ================= EMPTY STATE ================= */
+#emptyState {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ================= OPPORTUNITY GRID ================= */
+.opportunities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* ================= OPPORTUNITY CARD ================= */
+.opportunity-card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.opportunity-card:hover {
+    transform: translateY(-4px);
+}
+
+.opportunity-card h5 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+/* ================= ACTION BUTTONS ================= */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.card-actions button {
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+}
+
+/* edit button */
+.edit-btn {
+    background: #10b981;
+}
+
+.edit-btn:hover {
+    background: #059669;
+}
+
+/* delete button */
+.delete-btn {
+    background: #ef4444;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+/* ================= SKILLS ================= */
+.skills-tags {
+    margin-top: 8px;
+}
+
+.skill-tag {
+    display: inline-block;
+    background: #f1f5f9;
+    color: #334155;
+    padding: 4px 8px;
+    margin: 3px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* ================= ADD BUTTON ================= */
+#opportunitySection button {
+    width: auto;
+    margin-bottom: 15px;
+    padding: 10px 16px;
+}
+
+/* ================= MODAL ================= */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 450px;
+    max-width: 95%;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+/* modal animation */
+@keyframes fadeIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ================= TOAST ================= */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #111827;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+    .nav {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .nav-item {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    form {
+        width: 90%;
+    }
+
+    .opportunities-grid {
+        grid-template-columns: 1fr;
+    }
+}

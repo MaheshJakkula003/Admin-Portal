@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+
+<div id="authWrapper">
+
+    <div id="loginPage" class="form-page active">
+        <form id="loginForm">
+            <h2>Login</h2>
+
+            <input id="loginEmail" type="email" placeholder="Email" required>
+            <input id="loginPassword" type="password" placeholder="Password" required>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">
+                <input type="checkbox" id="loginRemember" style="width: auto; margin-bottom: 0;">
+                <label for="loginRemember" style="font-size: 14px; cursor: pointer;">Remember Me</label>
+            </div>
+
+            <button type="submit">Login</button>
+
+            <p>Don't have an account? 
+                <a href="javascript:void(0)" onclick="showPage('signupPage')">Sign Up</a>
+            </p>
+        </form>
+    </div>
+
+    <div id="signupPage" class="form-page">
+        <form id="signupForm">
+            <h2>Sign Up</h2>
+
+            <input id="signupName" type="text" placeholder="Full Name" required>
+            <input id="signupEmail" type="email" placeholder="Email" required>
+            <input id="signupPassword" type="password" placeholder="Password" required>
+            <input id="signupConfirmPassword" type="password" placeholder="Confirm Password" required>
+
+            <button type="submit">Create Account</button>
+
+            <p>Already have an account? 
+                <a href="javascript:void(0)" onclick="showPage('loginPage')">Login</a>
+            </p>
+        </form>
+    </div>
+
+</div>
+
+<div id="dashboardWrapper">
+
+    <div class="nav">
+        <div class="nav-item active" onclick="showSection('dashboard', this)">Dashboard</div>
+        <div class="nav-item" onclick="showSection('opportunity', this)">Opportunities</div>
+        <div class="nav-item" onclick="handleLogout()">Logout</div>
+    </div>
+
+    <div class="main">
+
+        <header>
+            <h2 id="pageTitle">Dashboard</h2>
+            <small id="userEmail"></small>
+        </header>
+
+        <div id="dashboardSection" class="dash-section active">
+            <h3>Welcome to Admin Dashboard</h3>
+        </div>
+
+        <div id="opportunitySection" class="dash-section">
+
+            <button onclick="openOpportunityModal()">+ Add Opportunity</button>
+
+            <div id="loader" style="display:none;">Loading...</div>
+
+            <div class="opportunities-grid" id="opGrid">
+                <p id="emptyState" style="display:none;">No opportunities found</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div id="opportunityModal" class="modal">
+    <div class="modal-content">
+
+        <h3 id="modalTitle">Create Opportunity</h3>
+
+        <form id="opportunityForm">
+
+            <input type="hidden" id="oppId">
+
+            <label>Title</label>
+            <input id="oppName" type="text" required>
+
+            <label>Duration</label>
+            <input id="oppDuration" type="text" required>
+
+            <label>Start Date</label>
+            <input id="oppStartDate" type="date" required>
+
+            <label>End Date</label>
+            <input id="oppEndDate" type="date">
+
+            <label>Description</label>
+            <textarea id="oppDescription" required></textarea>
+
+            <label>Skills (comma separated)</label>
+            <input id="oppSkills" type="text" required>
+
+            <label>Category</label>
+            <select id="oppCategory" required>
+                <option value="">Select Category</option>
+                <option value="Technology">Technology</option>
+                <option value="Business">Business</option>
+                <option value="Design">Design</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Future Opportunities</label>
+            <input id="oppFuture" type="text">
+
+            <label>Max Applicants</label>
+            <input id="oppMaxApplicants" type="number" min="1">
+
+            <button type="submit">Save</button>
+            <button type="button" onclick="closeOpportunityModal()">Cancel</button>
+
+        </form>
+
+    </div>
+</div>
+
+<div id="toast">
+    <span id="toastMsg"></span>
+</div>
+
+<script src="{{ url_for('static', filename='admin.js') }}"></script>
+
+<script>
+function showPage(id) {
+    document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function showSection(section, el) {
+
+    document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+
+    if (el) el.classList.add('active');
+
+    if (section === 'dashboard') {
+        document.getElementById('dashboardSection').classList.add('active');
+        document.getElementById('pageTitle').innerText = "Dashboard";
+    }
+
+    if (section === 'opportunity') {
+        document.getElementById('opportunitySection').classList.add('active');
+        document.getElementById('pageTitle').innerText = "Opportunities";
+
+        if (typeof loadOpportunities === "function") {
+            loadOpportunities();
+        }
+    }
+}
+
+function openOpportunityModal(op = null) {
+    document.getElementById('opportunityModal').classList.add('active');
+
+    if (op) {
+        document.getElementById('modalTitle').innerText = "Edit Opportunity";
+
+        document.getElementById('oppId').value = op.id;
+        document.getElementById('oppName').value = op.title;
+        document.getElementById('oppDuration').value = op.duration;
+        document.getElementById('oppStartDate').value = op.start_date;
+        document.getElementById('oppEndDate').value = op.end_date || '';
+        document.getElementById('oppDescription').value = op.description;
+        document.getElementById('oppSkills').value = op.skills;
+        document.getElementById('oppCategory').value = op.category;
+        document.getElementById('oppFuture').value = op.future_opportunities;
+        document.getElementById('oppMaxApplicants').value = op.max_applicants;
+    } else {
+        document.getElementById('modalTitle').innerText = "Create Opportunity";
+        document.getElementById('opportunityForm').reset();
+        document.getElementById('oppId').value = '';
+    }
+}
+
+function closeOpportunityModal() {
+    document.getElementById('opportunityModal').classList.remove('active');
+}
+
+window.onclick = function(e) {
+    const modal = document.getElementById('opportunityModal');
+    if (e.target === modal) {
+        closeOpportunityModal();
+    }
+}
+</script>
+
+</body>
+</html>
